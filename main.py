@@ -1,29 +1,37 @@
 from elftools.elf.elffile import ELFFile
 import binascii
 
-with open('a.out', 'rb') as f:
+addr=input('Path of the elf file you want to parse:') #a.out ne rastin tone
+with open(addr, 'rb') as f:
     
     elf_file = ELFFile(f)
+    zgjedhja=input('Do you wanna explore header or sections?')
+    zgjedhja.lower()
 
     #iterimi i headerit
-    header = elf_file.header
-    for part in header:
+    def headeri():
+        header = elf_file.header
         print(f'Header:')
-        print(f'{part}: {header[part]}')
-
-    prog_head_table = elf_file.program_header_table                                      
-    for prog_head in prog_head_table:
-        print(f'Program Header:')
-        print(f'{prog_head}: {prog_head["p_{prog_head}"]}')
+        for part in header:
+            print(f'{part}: {header[part]}')
 
     #iterimi i seksioneve
-    for section in elf_file.iter_sections():
-        print("Section name:", section.name)
+    def seksionet():
+        for section in elf_file.iter_sections():
+            print("Section name:", section.name)
+        section=input("Which section you want to explore?", )
+        text_section = elf_file.get_section_by_name(section)
+        text_data = text_section.data()
+        print(section,text_data)
 
-    section=input("Which section you want to explore?", )
-    text_section = elf_file.get_section_by_name(section)
-    text_data = text_section.data()
-    print(section,text_data)
+    if zgjedhja=='header':
+        headeri()
+    elif zgjedhja=='sections':
+        seksionet()
+    else:
+        print("Please choose header or sections")
+
+
 
  
 
