@@ -1,4 +1,5 @@
-f=open('','rb')
-content=f.read()
-content
-f.close()
+import pickle
+x=open("","rb")
+y=pickle.load(x)
+print(y)
+x.close()
