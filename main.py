@@ -1,28 +1,25 @@
 from elftools.elf.elffile import ELFFile
 import elf_functions
+import magic
 
-addr=input('Path of the elf file you want to parse:') #a.out ne rastin tone
-with open(addr, 'rb') as f:
-    elf_file = ELFFile(f)
-    choice=input('Press 1 to explore header, press 2 to explore sections, press 3 to explore symbols, press 4 to explore notes!')
-    choice.lower()
+file=input('Path of the elf file you want to parse:') #a.out ne rastin tone
+with open(file, 'rb') as f:
+    magic_number = f.read(4)
 
+# Check if the magic number matches the ELF magic number
+    if magic_number == b'\x7fELF':
+        print('The file is an ELF file.')
+        elf_file = ELFFile(f)
+        elf_functions.analyze_elf_file(elf_file)
+        
+        
+    else:
+        # The file is not an ELF file, check what file it is
+        file_type = magic.from_file(file)
+        print(f'The file is not an ELF file. Its type is: {file_type}')
+        #TODO: create methods thar parse other binary files
 
-    def switchChoice(choice):
-        if choice=='1':
-            elf_functions.printHeader(elf_file)
-        elif choice=='2':
-            elf_functions.printSections(elf_file)
-        elif choice=='3':
-            elf_functions.printSymbolTable(elf_file)
-        elif choice=='4':
-            elf_functions.printNotesTable(elf_file)
-        else:
-            print(choice)
-            print("We don't provide what you are searching for")
-
-   
-switchChoice(choice)
+    
 
 
 

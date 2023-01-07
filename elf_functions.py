@@ -1,5 +1,22 @@
 from elftools.elf.elffile import ELFFile
 
+def switchChoice(choice,elf_file):
+        if choice=='1':
+            printHeader(elf_file)
+        elif choice=='2':
+            printSections(elf_file)
+        elif choice=='3':
+           printSymbolTable(elf_file)
+        elif choice=='4':
+            printNotesTable(elf_file)
+        else:
+            print(choice)
+            print("We don't provide what you are searching for")
+def analyze_elf_file(f):
+    choice=input('Press 1 to explore header, press 2 to explore sections, press 3 to explore symbols, press 4 to explore notes!')
+    choice.lower()
+    switchChoice(choice,f)
+
 #iterimi i headerit
 def printHeader(elf_file):
         header = elf_file.header
