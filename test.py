@@ -1,4 +1,3 @@
-import sys
 from elftools.elf.elffile import ELFFile
 
 # Open the ELF file
@@ -18,27 +17,32 @@ with open('a.out', 'rb') as f:
     for segment in elffile.iter_segments():
         print(segment)
     print()
-    
-    # Print the section header table
+        
+        # Print the section header table
     print('Section Header Table:')
     print('-' * 30)
     for section in elffile.iter_sections():
-        print(section)
+            print(section)
     print()
-    
-    # Print the symbol tables
+        
+        # Print the symbol tables
     print('Symbol Tables:')
     print('-' * 30)
-    for section in elffile.iter_sections():
-        if isinstance(section, elffile.SymbolTableSection):
-            for symbol in section.iter_symbols():
-                print(symbol)
+    symbol_table = elffile.get_section_by_name('.symtab')
+    if symbol_table is not None:
+        for symbol in symbol_table.iter_symbols():
+            print(symbol)
+    else:
+        print("Couln't find a symbol table")
     print()
-    
-    # Print the note tables
+        
+        # Print the note tables
     print('Note Tables:')
     print('-' * 30)
-    for section in elffile.iter_sections():
-        if isinstance(section, elffile.NoteSection):
-            for note in section.iter_notes():
-                print(note)
+    note_table = elffile.get_section_by_name('.note')
+    if note_table is not None:
+        for note in note_table.iter_notes():
+            print(note)
+    else:
+        print("Couldnt find a note table")
+    print()
