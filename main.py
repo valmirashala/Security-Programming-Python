@@ -1,42 +1,28 @@
 from elftools.elf.elffile import ELFFile
+import elf_functions
 
 addr=input('Path of the elf file you want to parse:') #a.out ne rastin tone
 with open(addr, 'rb') as f:
-    
     elf_file = ELFFile(f)
-    zgjedhja=input('Do you wanna explore header or sections?')
-    zgjedhja.lower()
+    choice=input('Press 1 to explore header, press 2 to explore sections, press 3 to explore symbols, press 4 to explore notes!')
+    choice.lower()
 
-    def again():
-        x=input('Do you wanna select another section?', )
-        if x=='yes':
-            seksionet()
+
+    def switchChoice(choice):
+        if choice=='1':
+            elf_functions.printHeader(elf_file)
+        elif choice=='2':
+            elf_functions.printSections(elf_file)
+        elif choice=='3':
+            elf_functions.printSymbolTable(elf_file)
+        elif choice=='4':
+            elf_functions.printNotesTable(elf_file)
         else:
-            exit
+            print(choice)
+            print("We don't provide what you are searching for")
 
-    #iterimi i headerit
-    def headeri():
-        header = elf_file.header
-        print(f'Header:')
-        for part in header:
-            print(f'{part}: {header[part]}')
-
-    #iterimi i seksioneve
-    def seksionet():
-        for section in elf_file.iter_sections():
-            print("Section name:", section.name)
-        section=input("Which section you want to explore?", )
-        text_section = elf_file.get_section_by_name(section)
-        text_data = text_section.data()
-        print(section,':',text_data)
-        again()
-
-    if zgjedhja=='header':
-        headeri()
-    elif zgjedhja=='sections':
-        seksionet()
-    else:
-        print("Please choose header or sections")
+   
+switchChoice(choice)
 
 
 
