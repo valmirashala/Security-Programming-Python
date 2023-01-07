@@ -1,5 +1,4 @@
 from elftools.elf.elffile import ELFFile
-import binascii
 
 addr=input('Path of the elf file you want to parse:') #a.out ne rastin tone
 with open(addr, 'rb') as f:
@@ -7,6 +6,13 @@ with open(addr, 'rb') as f:
     elf_file = ELFFile(f)
     zgjedhja=input('Do you wanna explore header or sections?')
     zgjedhja.lower()
+
+    def again():
+        x=input('Do you wanna select another section?', )
+        if x=='yes':
+            seksionet()
+        else:
+            exit
 
     #iterimi i headerit
     def headeri():
@@ -22,7 +28,8 @@ with open(addr, 'rb') as f:
         section=input("Which section you want to explore?", )
         text_section = elf_file.get_section_by_name(section)
         text_data = text_section.data()
-        print(section,text_data)
+        print(section,':',text_data)
+        again()
 
     if zgjedhja=='header':
         headeri()
