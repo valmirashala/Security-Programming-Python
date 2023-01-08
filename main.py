@@ -5,6 +5,7 @@ import magic
 import binary_functions
 import os
 
+
 file=input('Path of the elf file you want to parse:') #a.out ne rastin tone
 folder_name = "resources"
 try:
@@ -27,6 +28,8 @@ try:
                 binary_functions.readBytes(path)
             elif(file_extension)=='.dat':
                 binary_functions.read_datfiles(path)
+            elif(file_extension)=='.jar':
+                binary_functions.read_jar(path)
 except Exception as e:
     print('Something went wrong, please try again later!')
 

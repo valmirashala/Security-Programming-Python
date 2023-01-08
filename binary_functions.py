@@ -1,5 +1,6 @@
 import sqlite3
 import struct
+import zipfile
 
 def read_dbfile(file):
     # Connect to the database
@@ -66,6 +67,19 @@ def readBytes(filename):
             bytes=bytes+str((int.from_bytes(b,byteorder='big')))
 
     print(bytes)
+
+def read_jar(jar_file):
+    zf = zipfile.ZipFile(jar_file, 'r')
+    try:
+        lst = zf.infolist()
+        for zi in lst:
+            fn = zi.filename
+            if fn.endswith('.class'):
+                print(fn)
+    finally:
+        zf.close()
+
+
 
 
 
