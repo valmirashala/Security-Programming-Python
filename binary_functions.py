@@ -36,7 +36,7 @@ def read_dbfile(file):
 def read_datfiles(file):
 
     binary_file = open(file, 'rb')
-
+    
     # read the binary data
     data = binary_file.read()
 
