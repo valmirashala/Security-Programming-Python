@@ -3,7 +3,8 @@ import elf_functions
 import magic
 import chardet
 import bin_parses
-
+import binary_functions
+import os
 file=input('Path of the elf file you want to parse:') #a.out ne rastin tone
 with open(file, 'rb') as f:
     magic_number = f.read(4)
@@ -23,7 +24,9 @@ with open(file, 'rb') as f:
         # The file is not an ELF or .bin file, check what file it is
         file_type = magic.from_file(file)
         print(f'The file is not an ELF file. Its type is: {file_type}')
-        #TODO: create methods thar parse other binary files
+        _, file_extension = os.path.splittext(file)
+        if(file_extension)=='.db':
+            binary_functions.read_dbfile(file)
 
     
 
