@@ -64,8 +64,8 @@ def readBytes(filename):
                 break
             
             bytes=bytes+str((int.from_bytes(b,byteorder='big')))
-            
-            print(bytes)
+
+    print(bytes)
 
 
 
