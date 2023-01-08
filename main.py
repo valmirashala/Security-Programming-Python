@@ -2,7 +2,6 @@ from pathlib import Path
 from elftools.elf.elffile import ELFFile
 import elf_functions
 import magic
-import bin_parses
 import binary_functions
 import os
 
@@ -24,7 +23,7 @@ with open(path, 'rb') as f:
         if(file_extension)=='.db':
             binary_functions.read_dbfile(path)
         elif(file_extension)=='.bin':
-            bin_parses.readBytes(path)
+            binary_functions.readBytes(path)
         elif(file_extension)=='.dat':
             binary_functions.read_datfiles(path)
 

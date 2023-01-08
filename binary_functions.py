@@ -48,3 +48,25 @@ def read_datfiles(file):
 
     # print the data
     print(values)
+
+def readBytes(filename):
+    
+    bytes=''
+    
+    with open(filename,'rb') as file:
+        
+        while True:
+            
+            b=file.read(1)
+            
+            if not b:
+                
+                break
+            
+            bytes=bytes+str((int.from_bytes(b,byteorder='big')))
+            
+            print(bytes)
+
+
+
+
