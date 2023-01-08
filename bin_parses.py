@@ -7,7 +7,7 @@ def readBytes(filename):
                 break
             bytes=bytes+str((int.from_bytes(b,byteorder='big')))
             print(bytes)
-            readBytes('binary.bin')
+readBytes('binary.bin')
 
 
 
