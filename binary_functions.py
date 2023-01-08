@@ -1,4 +1,5 @@
 import sqlite3
+import struct
 
 def read_dbfile(file):
     # Connect to the database
@@ -11,6 +12,7 @@ def read_dbfile(file):
     cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
 
     # Get the list of tables
+
     tables = cursor.fetchall()
 
     # Loop through the list of tables
@@ -30,3 +32,19 @@ def read_dbfile(file):
 
     # Close the connection
     conn.close()
+
+def read_datfiles(file):
+
+    binary_file = open(file, 'rb')
+
+    # read the binary data
+    data = binary_file.read()
+
+    # close the binary file
+    binary_file.close()
+
+    # unpack the binary data
+    values = struct.unpack('iif', data)
+
+    # print the data
+    print(values)
